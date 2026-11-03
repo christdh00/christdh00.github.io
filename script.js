@@ -1,10 +1,5 @@
-/* ============================================================
-   QUICK PERSONALIZATION
-   This site uses the professional contact details supplied in the
-   resume. Remove anything you do not want published publicly.
-   ============================================================ */
 const SITE = {
-  displayName: "Christopher", // Short first-name display
+  displayName: "Chris", // Short first-name display
   email: "christopher.hitijahubessy@mail.utoronto.ca", // Public professional email
   github: "https://github.com/christdh00",
   linkedin: "https://www.linkedin.com/in/christdh/", // Public LinkedIn profile
