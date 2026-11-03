@@ -314,38 +314,69 @@ html[data-theme="light"] .floating-tag {
 }
 
 
+
 /* ==========================================
-   SMOOTH DARK / LIGHT MODE TRANSITION
+   SMOOTH LIGHT / DARK MODE TRANSITION
    ========================================== */
 
 @media (prefers-reduced-motion: no-preference) {
 
-  ::view-transition-old(root) {
-    animation: 300ms ease-in both theme-fade-out;
+  html,
+  body,
+  .site-header,
+  .glass-card,
+  .dashboard-body,
+  .window-titlebar,
+  .chart-bottom,
+  .code-line,
+  .floating-tag,
+  .chart-pill,
+  .icon-button,
+  .button-ghost,
+  .contact-panel,
+  .profile-photo,
+  .project-art,
+  .section-journey,
+  .hero-description,
+  .hero-intro,
+  .hero-fullname,
+  .project-content,
+  .project-tags span,
+  .chips span,
+  .timeline-item p,
+  .section-heading p {
+    transition:
+      background-color 0.65s ease,
+      color 0.65s ease,
+      border-color 0.65s ease,
+      box-shadow 0.65s ease;
   }
 
-  ::view-transition-new(root) {
-    animation: 500ms ease-out both theme-fade-in;
+  /* Preserve dashboard hover rotation */
+  .dashboard-window {
+    transition:
+      background-color 0.65s ease,
+      color 0.65s ease,
+      border-color 0.65s ease,
+      box-shadow 0.65s ease,
+      transform 0.5s ease;
   }
 
-}
-
-@keyframes theme-fade-out {
-  from {
-    opacity: 1;
+  /* Preserve project card hover effects */
+  .project-card {
+    transition:
+      transform 0.25s ease,
+      background-color 0.65s ease,
+      color 0.65s ease,
+      border-color 0.65s ease,
+      box-shadow 0.65s ease;
   }
 
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes theme-fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
+  /* SVG chart elements */
+  .grid-lines,
+  .plot-dots {
+    transition:
+      color 0.65s ease,
+      fill 0.65s ease;
   }
 }
