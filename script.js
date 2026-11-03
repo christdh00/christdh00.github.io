@@ -190,6 +190,12 @@ if (ctx && !reduceMotion.matches) {
    ANIMATED BILINGUAL TYPEWRITER
    ========================================== */
 
+
+/* ==========================================
+   ANIMATED BILINGUAL TYPEWRITER
+   Both introduction and role are animated
+   ========================================== */
+
 (() => {
   const roles = [
     { intro: "I'm a", role: "Project Analyst" },
@@ -202,18 +208,41 @@ if (ctx && !reduceMotion.matches) {
     { intro: "Je suis", role: "étudiant en statistique" }
   ];
 
-  const introElement = document.getElementById("role-intro");
-  const roleElement = document.getElementById("rotating-role");
+  const intro = document.getElementById("role-intro");
+  const role = document.getElementById("rotating-role");
+  const cursor = document.querySelector(
+    "#hero-title .typing-cursor"
+  );
 
-  if (!introElement || !roleElement) return;
+  if (!intro || !role || !cursor) return;
 
-  // Disable animation for visitors who prefer reduced motion.
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  // Respect accessibility preferences.
+  if (window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches) {
     return;
   }
 
-  const sleep = (ms) =>
+  const sleep = ms =>
     new Promise(resolve => setTimeout(resolve, ms));
+
+  async function typeText(element, text, speed = 65) {
+    const letters = Array.from(text);
+
+    for (let i = 1; i <= letters.length; i++) {
+      element.textContent = letters.slice(0, i).join("");
+      await sleep(speed);
+    }
+  }
+
+  async function eraseText(element, speed = 35) {
+    const letters = Array.from(element.textContent);
+
+    for (let i = letters.length - 1; i >= 0; i--) {
+      element.textContent = letters.slice(0, i).join("");
+      await sleep(speed);
+    }
+  }
 
   async function startTypewriter() {
     let index = 0;
@@ -221,31 +250,37 @@ if (ctx && !reduceMotion.matches) {
     while (true) {
       const current = roles[index];
 
-      introElement.textContent = current.intro;
-      roleElement.textContent = "";
+      intro.textContent = "";
+      role.textContent = "";
 
-      // Type the role letter by letter.
-      for (let i = 1; i <= current.role.length; i++) {
-        roleElement.textContent = current.role.slice(0, i);
-        await sleep(65);
-      }
+      // 1. Type the introduction.
+      intro.after(cursor);
+      await typeText(intro, current.intro, 85);
 
-      // Keep the completed role visible.
-      await sleep(2000);
+      await sleep(250);
 
-      // Delete the role letter by letter.
-      for (let i = current.role.length; i >= 0; i--) {
-        roleElement.textContent = current.role.slice(0, i);
-        await sleep(35);
-      }
+      // 2. Move cursor and type the role.
+      role.after(cursor);
+      await typeText(role, current.role, 65);
 
-      await sleep(300);
+      // 3. Pause to show the completed phrase.
+      await sleep(2200);
 
-      // Move to the next English or French role.
+      // 4. Erase the role.
+      await eraseText(role, 35);
+
+      await sleep(150);
+
+      // 5. Move cursor back and erase introduction.
+      intro.after(cursor);
+      await eraseText(intro, 45);
+
+      await sleep(350);
+
+      // 6. Next English/French phrase.
       index = (index + 1) % roles.length;
     }
   }
 
   startTypewriter();
 })();
-
