@@ -214,7 +214,7 @@ if (ctx && !reduceMotion.matches) {
     { intro: "I'm a", role: "Statistics Student" },
     { intro: "Je suis", role: "étudiant en statistique" },
     { intro: "I'm a", role: "Pianist & Organist" },
-    { intro: "Je suis", role: "pianist et organiste" }
+    { intro: "Je suis", role: "pianiste et organiste" }
   ];
 
   const intro = document.getElementById("role-intro");
