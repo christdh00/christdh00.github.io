@@ -46,37 +46,22 @@ function syncThemeLabel() {
 }
 syncThemeLabel();
 
+
 /* Smooth dark/light mode transition */
 
-function toggleTheme() {
-  root.dataset.theme =
+themeButton.addEventListener("click", () => {
+  const newTheme =
     root.dataset.theme === "dark" ? "light" : "dark";
 
+  root.dataset.theme = newTheme;
+
   try {
-    localStorage.setItem("portfolio-theme", root.dataset.theme);
+    localStorage.setItem("portfolio-theme", newTheme);
   } catch (_) {
-    // Storage unavailable
+    // Ignore storage errors
   }
 
   syncThemeLabel();
-}
-
-themeButton.addEventListener("click", () => {
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  if (
-    reducedMotion ||
-    typeof document.startViewTransition !== "function"
-  ) {
-    toggleTheme();
-    return;
-  }
-
-  document.startViewTransition(() => {
-    toggleTheme();
-  });
 });
 
 // Responsive menu.
