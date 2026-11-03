@@ -45,10 +45,38 @@ function syncThemeLabel() {
   themeButton.setAttribute('aria-label', `Switch to ${root.dataset.theme === 'dark' ? 'light' : 'dark'} theme`);
 }
 syncThemeLabel();
-themeButton.addEventListener('click', () => {
-  root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-  try { localStorage.setItem('portfolio-theme', root.dataset.theme); } catch (_) { /* no-op */ }
+
+/* Smooth dark/light mode transition */
+
+function toggleTheme() {
+  root.dataset.theme =
+    root.dataset.theme === "dark" ? "light" : "dark";
+
+  try {
+    localStorage.setItem("portfolio-theme", root.dataset.theme);
+  } catch (_) {
+    // Storage unavailable
+  }
+
   syncThemeLabel();
+}
+
+themeButton.addEventListener("click", () => {
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (
+    reducedMotion ||
+    typeof document.startViewTransition !== "function"
+  ) {
+    toggleTheme();
+    return;
+  }
+
+  document.startViewTransition(() => {
+    toggleTheme();
+  });
 });
 
 // Responsive menu.
