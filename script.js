@@ -42,7 +42,11 @@ let savedTheme = null;
 try { savedTheme = localStorage.getItem('portfolio-theme'); } catch (_) { /* Storage can be unavailable */ }
 if (savedTheme === 'light' || savedTheme === 'dark') root.dataset.theme = savedTheme;
 function syncThemeLabel() {
-  themeButton.setAttribute('aria-label', `Switch to ${root.dataset.theme === 'dark' ? 'light' : 'dark'} theme`);
+  const target = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  const base = target === 'light' ? 'Switch to light theme' : 'Switch to dark theme';
+  const lang = root.lang || 'en';
+  themeButton.setAttribute('aria-label', window.PORTFOLIO_TRANSLATIONS?.[lang]?.[base] || base);
+  themeButton.title = window.PORTFOLIO_TRANSLATIONS?.[lang]?.['Toggle theme'] || 'Toggle theme';
 }
 syncThemeLabel();
 
@@ -70,12 +74,12 @@ const navLinks = document.getElementById('nav-links');
 function closeMenu() {
   navLinks.classList.remove('open');
   menuButton.setAttribute('aria-expanded', 'false');
-  menuButton.setAttribute('aria-label', 'Open menu');
+  menuButton.setAttribute('aria-label', i18nLookup('Open menu'));
 }
 menuButton.addEventListener('click', () => {
   const open = navLinks.classList.toggle('open');
   menuButton.setAttribute('aria-expanded', String(open));
-  menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  menuButton.setAttribute('aria-label', i18nLookup(open ? 'Close menu' : 'Open menu'));
 });
 navLinks.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
@@ -201,94 +205,173 @@ if (ctx && !reduceMotion.matches) {
 
 
 /* ==========================================
-   BILINGUAL TYPEWRITER
-   Types BOTH the introduction and the role
+   EN / FR / ID LANGUAGE SWITCHER
    ========================================== */
 
-(() => {
-  const phrases = [
-    { intro: "I'm a", role: "Project Analyst" },
-    { intro: "Je suis", role: "analyste de projets" },
-    { intro: "I'm a", role: "Math & Physics Tutor" },
-    { intro: "Je suis", role: "tuteur en maths et physique" },
-    { intro: "I'm a", role: "Statistics Student" },
-    { intro: "Je suis", role: "étudiant en statistique" },
-    { intro: "I'm a", role: "Pianist & Organist" },
-    { intro: "Je suis", role: "pianiste et organiste" }
-  ];
+// Original English text is retained, so changing languages is reversible.
+const originalTextNodes = [];
+const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+  acceptNode(node) {
+    const parent = node.parentElement;
+    if (!parent || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+    if (parent.closest('svg, script, style, .code-line, #hero-title, .language-switcher')) {
+      return NodeFilter.FILTER_REJECT;
+    }
+    return NodeFilter.FILTER_ACCEPT;
+  }
+});
+while (textWalker.nextNode()) {
+  const node = textWalker.currentNode;
+  originalTextNodes.push({ node, original: node.nodeValue });
+}
 
-  const intro = document.getElementById("role-intro");
-  const role = document.getElementById("rotating-role");
-  const cursor = document.querySelector(".typing-cursor");
+// Cache static accessible descriptions as well.
+const translatedAttributes = [];
+for (const element of document.querySelectorAll('[aria-label], [title], [alt]')) {
+  if (element.matches('.theme-toggle, .menu-toggle, .language-option')) continue;
+  for (const name of ['aria-label', 'title', 'alt']) {
+    const original = element.getAttribute(name);
+    if (original) translatedAttributes.push({ element, name, original });
+  }
+}
 
-  if (!intro || !role || !cursor) return;
+let activeLanguage = 'en';
+function i18nLookup(english, lang = activeLanguage) {
+  return window.PORTFOLIO_TRANSLATIONS?.[lang]?.[english] || english;
+}
 
-  // Accessibility: keep text static for reduced motion.
-  if (window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches) {
-    intro.textContent = phrases[0].intro;
-    role.textContent = phrases[0].role;
-    cursor.style.display = "none";
-    return;
+function translatePage(lang) {
+  activeLanguage = ['en', 'fr', 'id'].includes(lang) ? lang : 'en';
+  root.lang = activeLanguage;
+
+  for (const { node, original } of originalTextNodes) {
+    const match = /^(\s*)([\s\S]*?)(\s*)$/.exec(original);
+    if (!match) continue;
+    const english = match[2].replace(/\s+/g, ' ').trim();
+    const localized = i18nLookup(english, activeLanguage);
+    node.nodeValue = match[1] + localized + match[3];
   }
 
-  const sleep = ms =>
-    new Promise(resolve => setTimeout(resolve, ms));
+  for (const { element, name, original } of translatedAttributes) {
+    element.setAttribute(name, i18nLookup(original, activeLanguage));
+  }
 
-  async function type(element, text, speed) {
-    element.textContent = "";
+  document.title = i18nLookup('Christopher Daniel Hitijahubessy | Data Science Portfolio');
+  const metaDescription = document.querySelector('meta[name="description"]');
+  const ogDescription = document.querySelector('meta[property="og:description"]');
+  if (metaDescription) metaDescription.content = i18nLookup('Christopher Daniel Hitijahubessy — Specialist in Statistics (Statistical Machine Learning and Data Science stream) at the University of Toronto Scarborough. Explore projects, analytics, and experience.');
+  if (ogTitle) ogTitle.content = document.title;
+  if (ogDescription) ogDescription.content = i18nLookup('Portfolio of Christopher Daniel Hitijahubessy: statistics, machine learning, analytics, TrustGuard, co-op experience, and projects.');
 
+  document.querySelectorAll('.language-option').forEach(button => {
+    const selected = button.dataset.lang === activeLanguage;
+    button.classList.toggle('is-active', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+
+  syncThemeLabel();
+  const isMenuOpen = navLinks.classList.contains('open');
+  menuButton.setAttribute('aria-label', i18nLookup(isMenuOpen ? 'Close menu' : 'Open menu'));
+  window.restartPortfolioTypewriter?.(activeLanguage);
+}
+
+document.querySelectorAll('.language-option').forEach(button => {
+  button.addEventListener('click', () => {
+    const lang = button.dataset.lang;
+    if (lang === activeLanguage) return;
+    translatePage(lang);
+    try { localStorage.setItem('portfolio-language', lang); } catch (_) { /* optional */ }
+  });
+});
+
+let savedLanguage = 'en';
+try { savedLanguage = localStorage.getItem('portfolio-language') || 'en'; } catch (_) { /* optional */ }
+translatePage(savedLanguage);
+
+/* ==========================================
+   LANGUAGE-AWARE TYPEWRITER
+   ========================================== */
+(() => {
+  const phrasesByLanguage = {
+    en: [
+      { intro: "I'm a", role: "Project Analyst" },
+      { intro: "I'm a", role: "Math & Physics Tutor" },
+      { intro: "I'm a", role: "Statistics Student" },
+      { intro: "I'm a", role: "Pianist & Organist" }
+    ],
+    fr: [
+      { intro: 'Je suis', role: 'analyste de projets' },
+      { intro: 'Je suis', role: 'tuteur en maths et physique' },
+      { intro: 'Je suis', role: 'étudiant en statistique' },
+      { intro: 'Je suis', role: 'pianiste et organiste' }
+    ],
+    id: [
+      { intro: 'Saya seorang', role: 'Project Analyst' },
+      { intro: 'Saya seorang', role: 'Tutor Matematika dan Fisika' },
+      { intro: 'Saya seorang', role: 'Mahasiswa Statistika' },
+      { intro: 'Saya seorang', role: 'Pianis dan Organis' }
+    ]
+  };
+  const intro = document.getElementById('role-intro');
+  const role = document.getElementById('rotating-role');
+  const cursor = document.querySelector('.typing-cursor');
+  if (!intro || !role || !cursor) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  let runToken = 0;
+
+  async function type(element, text, speed, token) {
+    element.textContent = '';
     for (const letter of text) {
+      if (token !== runToken) return false;
       element.textContent += letter;
       await sleep(speed);
     }
+    return token === runToken;
   }
-
-  async function erase(element, speed) {
+  async function erase(element, speed, token) {
     while (element.textContent.length > 0) {
-      element.textContent =
-        element.textContent.slice(0, -1);
-
+      if (token !== runToken) return false;
+      element.textContent = element.textContent.slice(0, -1);
       await sleep(speed);
     }
+    return token === runToken;
   }
 
-  async function animate() {
-    let index = 0;
+  function start(lang) {
+    const token = ++runToken; // Immediately cancels the previous animation.
+    const phrases = phrasesByLanguage[lang] || phrasesByLanguage.en;
+    intro.textContent = '';
+    role.textContent = '';
 
-    while (true) {
-      const current = phrases[index];
-
-      // Clear previous text.
-      intro.textContent = "";
-      role.textContent = "";
-
-      // Type "I'm a" or "Je suis".
-      intro.after(cursor);
-      await type(intro, current.intro, 90);
-
-      await sleep(200);
-
-      // Type the professional role.
-      role.after(cursor);
-      await type(role, current.role, 65);
-
-      // Display complete phrase.
-      await sleep(2200);
-
-      // Erase role first.
-      await erase(role, 35);
-
-      // Then erase introduction.
-      intro.after(cursor);
-      await erase(intro, 45);
-
-      await sleep(300);
-
-      index = (index + 1) % phrases.length;
+    if (reducedMotion.matches) {
+      intro.textContent = phrases[0].intro;
+      role.textContent = phrases[0].role;
+      cursor.style.display = 'none';
+      return;
     }
+    cursor.style.display = '';
+
+    (async () => {
+      let index = 0;
+      while (token === runToken) {
+        const phrase = phrases[index];
+        intro.after(cursor);
+        if (!await type(intro, phrase.intro, 85, token)) return;
+        await sleep(180);
+        if (token !== runToken) return;
+        role.after(cursor);
+        if (!await type(role, phrase.role, 55, token)) return;
+        await sleep(2100);
+        if (!await erase(role, 32, token)) return;
+        intro.after(cursor);
+        if (!await erase(intro, 38, token)) return;
+        await sleep(250);
+        index = (index + 1) % phrases.length;
+      }
+    })();
   }
 
-  animate();
+  window.restartPortfolioTypewriter = start;
+  start(activeLanguage);
 })();
