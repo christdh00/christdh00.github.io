@@ -185,3 +185,67 @@ if (ctx && !reduceMotion.matches) {
     else if (!document.hidden && animationId === null) renderParticles();
   });
 }
+
+/* ==========================================
+   ANIMATED BILINGUAL TYPEWRITER
+   ========================================== */
+
+(() => {
+  const roles = [
+    { intro: "I'm a", role: "Project Analyst" },
+    { intro: "Je suis", role: "analyste de projets" },
+
+    { intro: "I'm a", role: "Math & Physics Tutor" },
+    { intro: "Je suis", role: "tuteur en maths et physique" },
+
+    { intro: "I'm a", role: "Statistics Student" },
+    { intro: "Je suis", role: "étudiant en statistique" }
+  ];
+
+  const introElement = document.getElementById("role-intro");
+  const roleElement = document.getElementById("rotating-role");
+
+  if (!introElement || !roleElement) return;
+
+  // Disable animation for visitors who prefer reduced motion.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  const sleep = (ms) =>
+    new Promise(resolve => setTimeout(resolve, ms));
+
+  async function startTypewriter() {
+    let index = 0;
+
+    while (true) {
+      const current = roles[index];
+
+      introElement.textContent = current.intro;
+      roleElement.textContent = "";
+
+      // Type the role letter by letter.
+      for (let i = 1; i <= current.role.length; i++) {
+        roleElement.textContent = current.role.slice(0, i);
+        await sleep(65);
+      }
+
+      // Keep the completed role visible.
+      await sleep(2000);
+
+      // Delete the role letter by letter.
+      for (let i = current.role.length; i >= 0; i--) {
+        roleElement.textContent = current.role.slice(0, i);
+        await sleep(35);
+      }
+
+      await sleep(300);
+
+      // Move to the next English or French role.
+      index = (index + 1) % roles.length;
+    }
+  }
+
+  startTypewriter();
+})();
+
