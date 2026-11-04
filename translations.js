@@ -198,7 +198,9 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Christopher Daniel Hitijahubessy | Data Science Portfolio": "Christopher Daniel Hitijahubessy | Portfolio en science des données",
     "Christopher Daniel Hitijahubessy — Statistics & Data Science at the University of Toronto. Explore machine learning, applied analytics, projects, and experience.": "Christopher Daniel Hitijahubessy — statistiques et science des données à l'Université de Toronto. Découvrez mes projets, mon expérience, l'apprentissage automatique et l'analyse appliquée.",
     "Portfolio of Christopher Daniel Hitijahubessy: statistics, machine learning, analytics, TrustGuard, co-op experience, and projects.": "Portfolio de Christopher Daniel Hitijahubessy : statistique, apprentissage automatique, analyse de données, TrustGuard, expérience coopérative et projets.",
-    "Project Analyst, Math and Physics Tutor, Statistics Student, Pianist and Organist": "Analyste de projets, tuteur en mathématiques et en physique, étudiant en statistique, pianiste et organiste"
+    "Project Analyst, Math and Physics Tutor, Statistics Student, Pianist and Organist": "Analyste de projets, tuteur en mathématiques et en physique, étudiant en statistique, pianiste et organiste",
+    "Ontario Greenhouse Gas Data Analysis": "Analyse des données sur les gaz à effet de serre en Ontario",
+    "Read the full analysis on RPubs": "Lire l’analyse complète sur RPubs"
   },
   "id": {
     "Skip to content": "Lewati ke konten",
@@ -398,6 +400,8 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Christopher Daniel Hitijahubessy | Data Science Portfolio": "Christopher Daniel Hitijahubessy | Data Science Portfolio",
     "Christopher Daniel Hitijahubessy — Statistics & Data Science at the University of Toronto. Explore machine learning, applied analytics, projects, and experience.": "Christopher Daniel Hitijahubessy — Statistika dan Sains Data di University of Toronto. Jelajahi machine learning, analisis terapan, proyek, dan pengalaman saya.",
     "Portfolio of Christopher Daniel Hitijahubessy: statistics, machine learning, analytics, TrustGuard, co-op experience, and projects.": "Portofolio Christopher Daniel Hitijahubessy: statistika, pembelajaran mesin, analisis data, TrustGuard, pengalaman co-op, dan berbagai proyek.",
-    "Project Analyst, Math and Physics Tutor, Statistics Student, Pianist and Organist": "Project Analyst, Tutor Matematika dan Fisika, Mahasiswa Statistika, Pianis dan Organis"
+    "Project Analyst, Math and Physics Tutor, Statistics Student, Pianist and Organist": "Project Analyst, Tutor Matematika dan Fisika, Mahasiswa Statistika, Pianis dan Organis",
+    "Ontario Greenhouse Gas Data Analysis": "Analisis Data Gas Rumah Kaca Ontario",
+    "Read the full analysis on RPubs": "Baca analisis lengkap di RPubs",
   }
 };
