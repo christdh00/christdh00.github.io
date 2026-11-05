@@ -375,3 +375,34 @@ translatePage(savedLanguage);
   window.restartPortfolioTypewriter = start;
   start(activeLanguage);
 })();
+
+
+/* Automatic classical background music */
+
+const backgroundMusic = document.getElementById("site-music");
+
+if (backgroundMusic) {
+  backgroundMusic.volume = 0.15;
+
+  async function startBackgroundMusic() {
+    if (!backgroundMusic.paused) return;
+
+    try {
+      await backgroundMusic.play();
+    } catch (_) {
+      // Browser may require user interaction.
+    }
+  }
+
+  // Attempt autoplay on page load.
+  startBackgroundMusic();
+
+  // Fallback: start after the first visitor interaction.
+  document.addEventListener("click", startBackgroundMusic);
+  document.addEventListener("keydown", startBackgroundMusic);
+
+  backgroundMusic.addEventListener("play", () => {
+    document.removeEventListener("click", startBackgroundMusic);
+    document.removeEventListener("keydown", startBackgroundMusic);
+  });
+}
