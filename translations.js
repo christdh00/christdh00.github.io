@@ -1,6 +1,7 @@
 /* French and Indonesian translations for the original English portfolio. */
 window.PORTFOLIO_TRANSLATIONS = {
   "fr": {
+    "Music": "Musique",
     "Skip to content": "Aller au contenu",
     "portfolio": "portfolio",
     "About": "À propos",
@@ -243,6 +244,7 @@ window.PORTFOLIO_TRANSLATIONS = {
     "A little more about my background, interests, and what I do.": "Sekilas tentang latar belakang, minat, dan kegiatan saya.",
     "A LITTLE ABOUT ME": "SEKILAS TENTANG SAYA",
     "Hi again, I'm": "Halo lagi, saya",
+    "Music": "Musik",
     "I'm pursuing an": "Saya sedang menempuh",
     "Honours BSc (Co-op)": "Bachelor of Science dengan Honours (Co-op)",
     "in the": "dengan",
