@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080c18" />
+  <meta name="description" content="The musical journey of Christopher Daniel Hitijahubessy — pianist, organist, and University of Toronto music minor." />
+  <meta property="og:title" content="Piano & Organ | Christopher Daniel Hitijahubessy" />
+  <meta property="og:description" content="Explore my background in piano, organ, church music, and musical studies." />
+  <title>Piano & Organ | Christopher Daniel Hitijahubessy</title>
+  <script>
+    // Apply a previously chosen theme before the page renders.
+    try {
+      const saved = localStorage.getItem('portfolio-theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+    } catch (_) {}
+  </script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="music.css?v=1" />
+  <script src="music.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-t="skip">Skip to content</a>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Main navigation" id="music-navigation">
+      <a class="wordmark" href="index.html" aria-label="Back to portfolio">
+        <span class="wordmark-symbol">C<span class="accent-dot">.</span></span>
+        <span class="wordmark-label">portfolio<span class="accent-dot">/</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html" data-t="navHome">Home</a>
+        <a href="index.html#projects" data-t="navProjects">Projects</a>
+        <a href="music.html" class="active" aria-current="page" data-t="navMusic">Music</a>
+        <a href="index.html#contact" data-t="navContact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <div class="language-switcher" role="group" aria-label="Select language">
+          <button type="button" class="language-option is-active" data-lang="en" lang="en" aria-pressed="true" title="English">EN</button>
+          <button type="button" class="language-option" data-lang="fr" lang="fr" aria-pressed="false" title="Français">FR</button>
+          <button type="button" class="language-option" data-lang="id" lang="id" aria-pressed="false" title="Bahasa Indonesia">ID</button>
+        </div>
+        <button class="icon-button theme-toggle" type="button" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="moon-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/></svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        </button>
+        <button class="icon-button menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="music-hero container" aria-labelledby="music-title">
+      <div class="music-hero-copy">
+        <p class="music-eyebrow"><span class="music-eyebrow-line"></span><span data-t="eyebrow">ANOTHER SIDE OF MY STORY</span></p>
+        <h1 id="music-title"><span data-t="heroTitleA">Pianist</span> <span class="gradient-text" data-t="heroTitleB">&amp; Organist.</span></h1>
+        <p class="music-lede" data-t="heroIntro">Music has been part of my life since elementary school. After years of formal piano training and graduating from music school, I continue to play the piano and organ, including at church.</p>
+        <p class="music-sublede" data-t="heroSub">Alongside my Statistics Specialist studies, I am pursuing a Minor in Music at the University of Toronto.</p>
+        <div class="music-actions">
+          <a class="button button-primary" href="#journey"><span data-t="journeyCta">My musical journey</span><span aria-hidden="true">↗</span></a>
+          <a class="button button-ghost" href="#recordings"><span data-t="recordingsCta">Performances &amp; recordings</span><span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="music-small-note"><span class="music-note-mark" aria-hidden="true">♪</span> <span data-t="heroNote">Piano · Organ · Classical &amp; sacred music</span></p>
+      </div>
+      <div class="music-art" aria-hidden="true">
+        <div class="music-orbit orbit-one"></div><div class="music-orbit orbit-two"></div>
+        <div class="music-panel">
+          <div class="music-panel-header"><span class="music-panel-lights"><i></i><i></i><i></i></span><span>music / practice</span><span>✦</span></div>
+          <div class="music-art-centre"><span class="music-art-symbol">𝄞</span><div class="staff-lines"></div></div>
+          <div class="piano-keys">
+            <span class="piano-key"></span><span class="piano-key black-after"></span><span class="piano-key black-after"></span><span class="piano-key"></span><span class="piano-key black-after"></span><span class="piano-key black-after"></span><span class="piano-key black-after"></span><span class="piano-key"></span><span class="piano-key black-after"></span><span class="piano-key black-after"></span><span class="piano-key"></span><span class="piano-key black-after"></span><span class="piano-key black-after"></span><span class="piano-key"></span>
+          </div>
+        </div>
+        <span class="music-art-badge">♬ <span data-t="visualBadge">Always learning</span></span>
+      </div>
+    </section>
+
+    <section class="section music-section" id="journey" aria-labelledby="journey-title">
+      <div class="container">
+        <div class="section-heading"><span class="section-number" data-t="journeyKicker">01 / BACKGROUND</span><h2 id="journey-title"><span data-t="journeyTitleA">My musical</span> <span class="gradient-text" data-t="journeyTitleB">journey.</span></h2><p data-t="journeyDesc">A long-standing passion that continues alongside my work in statistics and data science.</p></div>
+        <div class="music-story-grid">
+          <article class="glass-card music-story"><span class="music-story-index">01</span><span class="music-story-icon" aria-hidden="true">♪</span><h3 data-t="story1Title">Early beginnings</h3><p data-t="story1Body">I began learning piano in elementary school, developing a lasting interest in music through regular practice and lessons.</p></article>
+          <article class="glass-card music-story"><span class="music-story-index">02</span><span class="music-story-icon" aria-hidden="true">♫</span><h3 data-t="story2Title">Formal music training</h3><p data-t="story2Body">I continued studying piano at music school and completed its program, building a stronger foundation in performance and musicianship.</p></article>
+          <article class="glass-card music-story"><span class="music-story-index">03</span><span class="music-story-icon" aria-hidden="true">♬</span><h3 data-t="story3Title">Music today</h3><p data-t="story3Body">I play piano and organ in church and study music at university alongside my Statistics Specialist program.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section music-section music-focus-section" id="interests" aria-labelledby="focus-title">
+      <div class="container">
+        <div class="section-heading"><span class="section-number" data-t="focusKicker">02 / MUSICAL INTERESTS</span><h2 id="focus-title"><span data-t="focusTitleA">Piano, organ</span> <span class="gradient-text" data-t="focusTitleB">&amp; more.</span></h2><p data-t="focusDesc">The areas of music I enjoy exploring, performing, and learning about.</p></div>
+        <div class="music-focus-grid">
+          <article class="music-focus-card"><div class="focus-graphic" aria-hidden="true">♩</div><div><span class="focus-label" data-t="focusLabel1">KEYBOARD</span><h3 data-t="focus1Title">Classical piano</h3><p data-t="focus1Body">Playing, interpreting, and continuing to develop my skills at the piano.</p></div></article>
+          <article class="music-focus-card"><div class="focus-graphic" aria-hidden="true">✣</div><div><span class="focus-label" data-t="focusLabel2">CHURCH MUSIC</span><h3 data-t="focus2Title">Organ &amp; liturgical music</h3><p data-t="focus2Body">Serving through music at church, with a particular appreciation for organ repertoire and sacred music.</p></div></article>
+          <article class="music-focus-card"><div class="focus-graphic" aria-hidden="true">𝄢</div><div><span class="focus-label" data-t="focusLabel3">STUDY &amp; CREATIVITY</span><h3 data-t="focus3Title">Musical studies</h3><p data-t="focus3Body">Broadening my musical perspective through my university Music Minor and composition coursework.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section music-section" id="recordings" aria-labelledby="recordings-title">
+      <div class="container">
+        <div class="section-heading"><span class="section-number" data-t="recordingsKicker">03 / LISTENING ROOM</span><h2 id="recordings-title"><span data-t="recordingsTitleA">Performances</span> <span class="gradient-text" data-t="recordingsTitleB">&amp; recordings.</span></h2><p data-t="recordingsDesc">A space for music I perform and share.</p></div>
+        <div class="music-listening glass-card" id="recordings-list">
+          <div class="listening-icon" aria-hidden="true">♫</div>
+          <div><h3 data-t="comingTitle">Recordings coming soon</h3><p data-t="comingBody">I'll add performances and recordings here as I prepare them.</p></div>
+          <span class="music-listening-status" data-t="comingBadge">COMING SOON</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section music-section music-last-section" aria-labelledby="back-title">
+      <div class="container"><div class="music-closer glass-card"><span class="section-number" data-t="closerKicker">BEYOND MUSIC</span><h2 id="back-title"><span data-t="closerTitleA">Curious about my</span> <span class="gradient-text" data-t="closerTitleB">other work?</span></h2><p data-t="closerDesc">Explore my projects in statistics, machine learning, and applied analytics on the main portfolio.</p><a class="button button-primary" href="index.html"><span data-t="backCta">Back to my portfolio</span><span aria-hidden="true">↗</span></a></div></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><span>© <span id="music-year">2026</span> Christopher Daniel Hitijahubessy</span><span data-t="footer">Piano · Organ · Data</span><a class="back-to-top" href="#top" data-t="top">Back to top ↑</a></div></footer>
+</body>
+</html>
